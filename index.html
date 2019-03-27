@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>calc.u</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="main.css">
+
+    <!-- import the webpage's javascript file -->
+</head>
+
+<body class="avenir">
+    <header>
+        <h1>My Calculator</h1>
+    </header>
+    <div class="mh7 ba1 ma3 pa4 fl w-third bg-black">
+        <div class="flex flex-wrap mw6">
+            <div class="calc_keys flex fl w-100">
+                <button class="br2 pa4 ma1 bg-light-green fl w-25" data-action="clear">C</button>
+                <input type="text" class="calc_display br2 pa4 ma1 bg-green fl w-75" value="0" disabled />
+            </div>
+            <div class="calc_keys flex justify-center fl w-100">
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">7</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">8</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">9</button>
+                <button class="br2 operator-key bg-light-green fl w-25 pa4 ma1" data-action="divide">/</button>
+            </div>
+            <div class="calc_keys flex justify-center fl w-100">
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">4</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">5</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">6</button>
+                <button class="br2 operator-key bg-light-green fl w-25 pa4 ma1" data-action="multiply">x</button>
+            </div>
+            <div class="calc_keys flex justify-center fl w-100">
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">1</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">2</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">3</button>
+                <button class="br2 operator-key bg-light-green fl w-25 pa4 ma1" data-action="subtract">-</button>
+            </div>
+            <div class="calc_keys flex justify-center fl w-100">
+                <button class="br2 bg-light-green fl w-25 pa4 ma1">0</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1" data-action="decimal">.</button>
+                <button class="br2 bg-light-green fl w-25 pa4 ma1" data-action="calculate">=</button>
+                <button class="br2 equal-key bg-light-green fl w-25 pa4 ma1" data-action="add">+</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="main.js" defer></script>
+
+</html>
