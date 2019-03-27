@@ -1,38 +1,6 @@
-// 'use strict'
+'use strict'
 
-// const keys = document.querySelectorAll('.calc_keys')
-// console.log(keys)
-
-// keys.addEventListener('click', e => {
-//     if (e.target.matches('button')) {
-//         const key = e.target
-//         const action = key.dataset.action
-
-//         if (!action) {
-//             console.log('number')
-//         }
-
-//         if (
-//             action === 'add' ||
-//             action === 'multiply' ||
-//             action === 'divide' ||
-//             action === 'subtract'
-//         ) {
-//             console.log('operator key')
-//         }
-//         if (action === decimal) {
-//             console.log('decimal key')
-//         }
-//         if (action === clear) {
-//             console.log('clear key')
-//         }
-//         if (action === calculate) {
-//             console.log('equals key')
-//         }
-//     }
-// })
-
-
+// instantiates the calculator object with base values so we can manipulate the values and other things based on the values
 const calculator = {
     displayValue: '0',
     firstOperand: null,
@@ -58,6 +26,10 @@ function inputDigit(digit) {
 // and if the display is a number then it adds the new number to the end of the displayValue object
 
 function inputDecimal(dot) {
+    // exits the function if secondOperand is truthy. secondOperand becomes true when the use clicks on an operator
+    if (calculator.secondOperand) return;
+
+    //apends a decimal point to the end the the displayValue
     if (!calculator.displayValue.includes(dot)) {
         calculator.displayValue += dot;
     }
@@ -72,10 +44,19 @@ function inputOperator(nextOperator) {
     } = calculator;
     const inputValue = parseFloat(displayValue);
 
+    // this if statement checks if operator exists and if secondOperand is true, then updates the current 
+    // operator and exits the funcstion early so no calculations are performed
+    if (operator && calculator.secondOperand) {
+        calculator.operator = nextOperator;
+        console.log(calculator);
+        return;
+    }
+
     if (firstOperand === null) {
         calculator.firstOperand = inputValue;
     } else if (operator) {
-        const result = calculate[operator](firstOperand, inputValue);
+        const currentValue = firstOperand || 0;
+        const result = calculate[operator](currentValue, inputValue);
 
         calculator.displayValue = String(result);
         calculator.firstOperand = result;
@@ -85,6 +66,17 @@ function inputOperator(nextOperator) {
     calculator.operator = nextOperator;
     console.log(calculator)
 }
+// the actual math operations 
+/* the "=>" is called an arrow function.
+it shortens the syntax so instead of:
+function name(parameters){
+    return parameter1 + parameter2;
+}
+name(2, 2)
+you can write:
+'+': (parameter1, parameter2) => parameter1 + parameter2 
+and it automatically gets returned when you call that function name. 
+*/
 
 const calculate = {
     '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
@@ -93,12 +85,19 @@ const calculate = {
     '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
     '=': (firstOperand, secondOperand) => secondOperand
 }
-
+// resets all objects to original state
+function clearCalculator() {
+    calculator.displayValue = '0';
+    calculator.firstOperand = null;
+    calculator.secondOperand = false;
+    calculator.operator = null;
+    console.log(calculator);
+}
+// whenever you call this function then it updates the display based on what the objecs values are. but only shows the operands
 function updateDisplay() {
     const display = document.querySelector('.calc-display');
     display.value = calculator.displayValue;
 }
-
 updateDisplay()
 
 
@@ -111,7 +110,7 @@ keys.addEventListener('click', (event) => {
     } = event;
     if (!target.matches('button')) {
         return
-    } // the above if statement exits the function if they click on something in the calculator that is not a button
+    } // the above if statement exits the function if they click on something in the calculator object that is not a button
     if (target.classList.contains('operator')) {
         inputOperator(target.value);
         updateDisplay();
@@ -123,11 +122,10 @@ keys.addEventListener('click', (event) => {
         return
     }
     if (target.classList.contains('clear')) {
-        console.log('clear', targer.value);
+        clearCalculator();
+        updateDisplay();
         return
     }
     inputDigit(target.value);
     updateDisplay();
-
-
 })
